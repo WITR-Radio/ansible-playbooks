@@ -1,0 +1,41 @@
+[rivendell-db]
+witr-rvdl-1.rit.edu
+
+[rivendell-music]
+witr-nfs-1.rit.edu
+
+[new-web]
+witr-www-1.rit.edu
+
+[old-web]
+drizzy.rit.edu
+
+[old-db]
+ferg.rit.edu
+
+[new-db]
+witr-db-1.rit.edu
+
+[orchestration]
+witr-shepherd.rit.edu
+
+[production-share]
+wayne.rit.edu
+
+[virtualization]
+witr-proxmox-1.rit.edu
+witr-proxmox-2.rit.edu
+
+[wiki]
+wayne.rit.edu
+
+[streaming]
+hova.rit.edu
+
+[retired]
+asapmob-1.rit.edu   # the glusterfuck
+asapmob-2.rit.edu   # the glusterfuck
+isosine.rit.edu     # syslog
+dre.rit.edu         # rivendell db
+yonce.rit.edu
+lilb.rit.edu
