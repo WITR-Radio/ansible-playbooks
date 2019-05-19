@@ -27,6 +27,10 @@ abuse tables off in it’s own corner, rather than in the way of the website.
 * `production-share`: CIFS share for Studio C production data
 * `wiki`: Our internal wiki
 
+### Playbooks
+
+* `site.yml`: Deploy *everything*
+
 ## How Do I Use These?
 
 1. Log in to `witr-shepherd.rit.edu`
