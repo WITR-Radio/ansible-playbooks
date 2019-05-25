@@ -30,20 +30,22 @@ abuse tables off in it’s own corner, rather than in the way of the website.
 ### Playbooks
 
 * `site.yml`: Deploy *everything*
+* `base.yml`: Configure the basics on a new system
 
 ## How Do I Use These?
 
-1. Log in to `witr-shepherd.rit.edu`
-1. `cd /etc/ansible`
+1. Log in to `wayne.rit.edu`
+1. `cd /usr/local/etc/ansible`
 1. `git checkout master`
 1. `git pull`
-1. `ansible-playbook playbooks/$PLAYBOOK.yml`
+1. `ansible-playbook -i $PLAYBOOK.yml`
+1. Consult 1Password for the appropriate vault and SSH key passphrases
 
 ## No, Like, How Do I Configure A New Host?
 
 1. Create the `_ansible` group
 1. Create the `_ansible` user (login class should be `daemon`, home directory in
-`/usr/local/ansible`)
+`/home/_ansible`)
 1. Add our Ansible SSH key to the `authorized_keys` file in `_ansible`’s home
 folder
     ```
@@ -52,3 +54,4 @@ folder
 1. Add `_ansible` to `wheel` so that it can `sudo(1)` (or `doas(1)`)
 1. Ensure that the `sudo(1)` (or `doas(1)`) configuration permits `wheel` to act
 as root
+1. Install python3
