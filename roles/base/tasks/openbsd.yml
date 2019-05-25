@@ -1,0 +1,58 @@
+---
+
+- name: install openup
+  get_url:
+      url: https://stable.mtier.org/openup
+      dest: /usr/sbin/openup
+      group: wheel
+      owner: root
+      mode: '0744'
+      checksum: 'sha512:66700379e7e43748b3dd4beb5534f90a435ef2b9a1c5d8d01fd401ed676c8e663a01b91dcf3c84bb9e2ce688ce582660dcedc4892bf7bae79be3f601ba65e506'
+
+- name: add openup to /etc/daily.local
+  lineinfile:
+      state: present
+      line: openup -c
+      path: /etc/daily.local
+      backup: yes
+      create: yes
+      group: wheel
+      owner: root
+      mode: '0644'
+
+- name: configure mail aliases
+  notify: newaliases
+  template:
+      src: aliases.j2
+      dest: /etc/mail/aliases
+      owner: root
+      group: wheel
+      mode: '0644'
+
+- name: configure /etc/mail/secrets with root@witr.rit.edu
+  copy:
+      src: mail_secrets
+      dest: /etc/mail/secrets
+      owner: root
+      group: _smtpd
+      mode: '0640'
+
+- name: configure smtpd to send root email using root@witr.rit.edu
+  template:
+      src: smtpd.conf.j2
+      dest: /etc/mail/smtpd.conf
+      owner: root
+      group: wheel
+      mode: '0644'
+      backup: yes
+      validate: /usr/sbin/smtpd -nf %s
+
+- name: configure doas to permit wheel as root (and root as root)
+  copy:
+      src: doas.conf
+      dest: /etc/doas.conf
+      owner: root
+      group: wheel
+      mode: '0644'
+      backup: yes
+      validate: /usr/bin/doas -C %s

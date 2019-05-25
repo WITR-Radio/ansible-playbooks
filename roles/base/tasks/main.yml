@@ -1,0 +1,43 @@
+---
+
+# Run OS-specific task sets
+- import_tasks: openbsd.yml
+  when: ansible_facts['os_family']|lower == 'openbsd'
+
+- import_tasks: freebsd.yml
+  when: ansible_facts['os_family']|lower == 'freebsd'
+
+- import_tasks: rhel.yml
+  when: ansible_facts['os_family']|lower == 'redhat'
+
+# Run OS-independent task sets
+- name: create _ansible user
+  user:
+      name: _ansible
+      home: /home/_ansible
+      group: _ansible
+      groups: wheel
+      login_class: daemon
+
+- name: install ansible SSH key
+  authorized_key:
+      state: present
+      user: _ansible
+      key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMNDv+RBk17Lsm/9SNDRpLpEZI/cTEUDYoJd5cNzzMdJ _ansible@wayne
+      exclusive: yes
+
+- name: install /etc/issue
+  template:
+      src: issue.{{ ansible_os_family }}.j2
+      dest: /etc/issue
+      owner: root
+      group: wheel
+      mode: '0644'
+
+- name: install standard sshd configuration file
+  template:
+      src: sshd_config.{{ ansible_os_family }}.j2
+      dest: /etc/ssh/sshd_config
+      owner: root
+      group: root
+      mode: '0400'
