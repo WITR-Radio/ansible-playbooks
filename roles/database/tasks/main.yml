@@ -78,6 +78,7 @@
     host: "{{ item }}"
     state: present
     login_unix_socket: "{{ mariadb_socket_path }}"
+    check_implicit_admin: yes
   with_items:
     - "{{ ansible_hostname }}"
     - 127.0.0.1
