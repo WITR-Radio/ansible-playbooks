@@ -21,14 +21,14 @@
 [client]
 #password	= your_password
 port		= 3306
-socket		= /var/www/var/run/mysql/mysql.sock
+socket		= {{ mariadb_socket_path }}
 
 # Here follows entries for some specific programs
 
 # The MariaDB server
 [mysqld]
 port		= 3306
-socket		= /var/www/var/run/mysql/mysql.sock
+socket		= {{ mariadb_socket_path }}
 # Default is to listen on :: (IPv6 only).
 # To listen to all IPv4 network addresses, use "bind-address = 0.0.0.0".
 bind-address	= 127.0.0.1

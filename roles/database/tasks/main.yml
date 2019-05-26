@@ -67,6 +67,7 @@
     password: "{{ mariadb_root_password }}"
     host: "{{ item }}"
     state: present
+    login_unix_socket: "{{ mariadb_socket_path }}"
   with_items:
     - "{{ ansible_hostname }}"
     - 127.0.0.1
