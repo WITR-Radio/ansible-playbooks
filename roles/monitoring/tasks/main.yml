@@ -47,7 +47,7 @@
     - monitoring
 
 - name: import Zabbix schemas
-  when: schema_status_file.stat.exists is failed
+  when: schema_status_file.stat.exists == False
   mysql_db:
       state: import
       name: zabbix
@@ -60,7 +60,7 @@
     - monitoring
 
 - name: create schema check file to preserve idempotence (poorly)
-  when: schema_status_file.exists is failed
+  when: schema_status_file.exists == False
   file:
       state: file
       path: "{{ zabbix_schema_status_path }}"
