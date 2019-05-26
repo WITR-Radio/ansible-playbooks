@@ -1,0 +1,15 @@
+---
+
+# This role was written with OpenBSD in mind, so package names might not be the
+# same on other operating systems
+- name: install zabbix server
+  package:
+      name: zabbix-server
+      state: present
+
+- name: install zabbix-web
+  package:
+      name: zabbix-web
+      state: present
+
+- name: 
