@@ -13,6 +13,7 @@
     dest: /etc/httpd.conf
     owner: root
     mode: 0644
+    verify: /usr/sbin/httpd -nf %s
   register: httpd_le
   tags:
     - letsencrypt
@@ -38,6 +39,7 @@
     dest: /etc/pf.conf
     owner: root
     mode: 0600
+    verify: /sbin/pfctl -nf %s
   register: pf_le
   tags:
     - letsencrypt

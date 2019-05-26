@@ -1,11 +1,11 @@
 server "{{ tls_cname }}.witr.rit.edu" {
-	listen on $ext_ip port 80
+	listen on egress port 80
 	alias "{{ ansible_hostname }}.rit.edu"
 	
-	root { "/htdocs" }
+	root "/htdocs"
 	location "/.well-known/acme-challenge/*" {
 		root "/acme"
-		root strip 2
+		request strip 2
 	}
 	
 	location "/*" {
