@@ -3,6 +3,9 @@
 - hosts: monitoring
   remote_user: _ansible
   become: yes
+  vars:
+      tls_cname: monitoring
   roles:
       - database
+      - letsencrypt
       - monitoring

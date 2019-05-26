@@ -1,0 +1,14 @@
+server "{{ tls_cname }}.witr.rit.edu" {
+	listen on $ext_ip port 80
+	alias "{{ ansible_hostname }}.rit.edu"
+	
+	root { "/htdocs" }
+	location "/.well-known/acme-challenge/*" {
+		root "/acme"
+		root strip 2
+	}
+	
+	location "/*" {
+		block return 301 "https://{{ ansible_hostname }}.rit.edu$REQUEST_URI"
+	}
+}

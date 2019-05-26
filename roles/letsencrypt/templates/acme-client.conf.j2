@@ -1,0 +1,21 @@
+#
+# {{ ansible_managed }}
+# $OpenBSD: acme-client.conf,v 1.4 2017/03/22 11:14:14 benno Exp $
+#
+authority letsencrypt {
+        api url "https://acme-v01.api.letsencrypt.org/directory"
+        account key "/etc/acme/letsencrypt-privkey.pem"
+}
+
+authority letsencrypt-staging {
+        api url "https://acme-staging.api.letsencrypt.org/directory"
+        account key "/etc/acme/letsencrypt-staging-privkey.pem"
+}
+
+domain {{ tls_cname }}.witr.rit.edu {
+        alternative names { {{ ansible_hostname }}.rit.edu }
+        domain key "/etc/ssl/private/{{ tls_cname }}.witr.rit.edu.key"
+        domain certificate "/etc/ssl/{{ tls_cname }}.witr.rit.edu.crt"
+        domain full chain certificate "/etc/ssl/{{ tls_cname }}.witr.rit.edu.fullchain.pem"
+        sign with {{ le_signing_authority }}
+}

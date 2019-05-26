@@ -1,0 +1,89 @@
+---
+# Automatically deploy acme-client
+
+# Note that this role does not support generating certificates that need to be
+# shared across machines.  It can only generate a certificate that will be used
+# on a single machine.  If you try to run this role to generate a shared
+# certificate, all but the last one generated will be invalid, and if you
+# generate more than three, LetsEncrypt will throttle you.
+
+- name: copy in an httpd configuration just for setting up LetsEncrypt
+  template:
+    src: httpd-le-standalone.conf.j2
+    dest: /etc/httpd.conf
+    owner: root
+    mode: 0644
+  register: httpd_le
+  tags:
+    - letsencrypt
+
+- name: reload httpd to enable the new configuration (if necessary)
+  service:
+    name: httpd
+    state: reloaded
+  when: "httpd_le.changed"
+  tags:
+    - letsencrypt
+
+- name: back up the current pf configuration before changing it
+  command: cp /etc/pf.conf /etc/pf.conf.ansible-backup
+  tags:
+    - letsencrypt
+
+# This doesn't use a handler because handlers only run once at the end, and we
+# need it to take effect now in order to successfully obtain the certificates.
+- name: copy in a pf configuration just for setting up LetsEncrypt
+  template:
+    src: pf-le-standalone.conf.j2
+    dest: /etc/pf.conf
+    owner: root
+    mode: 0600
+  register: pf_le
+  tags:
+    - letsencrypt
+
+- name: reload pf to enable new rules (if necessary)
+  command: pfctl -f /etc/pf.conf
+  when: "pf_le.changed"
+  register: pf_reload
+  tags:
+    - letsencrypt
+
+- name: copy in an acme-client configuration for this machine
+  template:
+    src: acme-client.conf.j2
+    dest: /etc/acme-client.conf
+    owner: root
+    mode: 0644
+  tags:
+    - letsencrypt
+
+- name: call acme-client
+  command: "/usr/sbin/acme-client -AD {{ tls_cname }}.witr.rit.edu"
+  register: acme_result
+  failed_when: "acme_result.rc != 0 and acme_result.rc != 2"
+  changed_when: "acme_result.rc == 0"
+  tags:
+    - letsencrypt
+  notify:
+    - restart httpd
+
+- name: ensure there is a cron entry to renew the certificate
+  cron:
+    name: "acme-client automatic renewal"
+    minute: "45"
+    hour: "1"
+    job: "sleep $((RANDOM \\% 2048)) && acme-client {{ tls_cname }}.witr.rit.edu && rcctl reload httpd"
+  tags:
+    - letsencrypt
+
+- name: restore the backed-up pf configuration
+  command: mv /etc/pf.conf.ansible-backup /etc/pf.conf
+  tags:
+    - letsencrypt
+
+- name: reload pf to restore backed-up configuration
+  command: pfctl -f /etc/pf.conf
+  when: "pf_reload.changed"
+  tags:
+    - letsencrypt
