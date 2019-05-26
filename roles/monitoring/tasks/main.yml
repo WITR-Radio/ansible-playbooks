@@ -67,7 +67,7 @@
   tags:
     - monitoring
 
-- name: install httpd.conf to suppot Zabbix
+- name: install httpd.conf to support Zabbix
   template:
       src: httpd-zabbix.conf.j2
       dest: /etc/httpd.conf
