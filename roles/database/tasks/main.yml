@@ -32,6 +32,16 @@
   tags:
     - database
 
+- name: ensure {{ mariadb_socket_path }} exists
+  file:
+      state: directory
+      path: "{{ mariadb_socket_path }}"
+      owner: root
+      group: _mysql
+      mode: '0664'
+  tags:
+    - database
+
 - name: check to see if MariaDB needs to be initialized
   stat:
     path: /var/mysql
