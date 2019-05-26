@@ -27,6 +27,9 @@
     - letsencrypt
 
 - name: back up the current pf configuration before changing it
+  # Is this resiliant to stupidity? No, but we're a pretty small operation so it
+  # should be fine for now. Replace with a more unique filename if we start
+  # automatically running Ansible playbooks.
   command: cp /etc/pf.conf /etc/pf.conf.ansible-backup
   tags:
     - letsencrypt
@@ -40,6 +43,9 @@
     owner: root
     mode: 0600
     validate: /sbin/pfctl -nf %s
+    # Also backup here so that if you break the ansible role, you don't lose the
+    # original configuration file on the second run
+    backup: yes
   register: pf_le
   tags:
     - letsencrypt
