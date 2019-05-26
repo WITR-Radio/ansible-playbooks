@@ -82,9 +82,10 @@
     - monitoring
 
 - name: enable httpd
-  service:
+  command:
       name: httpd
-      state: enabled
+      state: started
+      enabled: yes
   tags:
     - monitoring
 
