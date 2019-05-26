@@ -2,14 +2,69 @@
 
 # This role was written with OpenBSD in mind, so package names might not be the
 # same on other operating systems
-- name: install zabbix server
+#
+# This role also assumes you want a single Zabbix server backed by MySQL
+# (MariaDB).
+
+- name: install zabbix-server
   package:
-      name: zabbix-server
+      # The double-dash separates the package name from the package flavor.
+      # This is an OpenBSD thing
+      name: zabbix-server--mysql
       state: present
+  tags:
+    - monitoring
 
 - name: install zabbix-web
   package:
       name: zabbix-web
       state: present
+  tags:
+    - monitoring
 
-      #- name: 
+- name: ensure the zabbix database exists in MySQL
+  mysql_db:
+      name: zabbix
+      state: present
+  tags:
+    - monitoring
+
+- name: ensure a zabbix user exists in MySQL with correct permissions
+  mysql_user:
+      name: zabbix
+      state: present
+      password: "{{ zabbix_database_password }}"
+      host: localhost
+      priv: zabbix:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLES
+  tags:
+    - monitoring
+
+- name: check to see if schemas need to be imported
+  stat:
+      name: "{{ zabbix_schema_status_path }}"
+  register: schema_status_file
+  tags:
+    - monitoring
+
+- name: import Zabbix schemas
+  when: schema_status_file.stat.exists is false
+  mysql_db:
+      state: import
+      name: zabbix
+      target: "{{ item }}"
+  loop:
+      - /usr/local/share/zabbix/schema/mysql/schema.sql
+      - /usr/local/share/zabbix/schema/mysql/images.sql
+      - /usr/local/share/zabbix/schema/mysql/data.sql
+  tags:
+    - monitoring
+
+- name: create schema check file to preserve idempotence (poorly)
+  when: schema_status_file.exists is false
+  file:
+      state: file
+      path: "{{ zabbix_schema_status_path }}"
+  tags:
+    - monitoring
+
+# Next: Pilfer the LetsEncrypt role I wrote for the SE dept.

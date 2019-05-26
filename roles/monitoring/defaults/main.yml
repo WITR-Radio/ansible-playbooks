@@ -1,0 +1,3 @@
+---
+
+zabbix_schema_status_path: "~/monitoring.zabbix-schemas-imported.check"
