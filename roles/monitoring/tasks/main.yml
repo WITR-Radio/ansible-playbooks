@@ -76,6 +76,8 @@
       owner: root
       group: wheel
       mode: '0644'
+  notify:
+    - reload httpd
   tags:
     - monitoring
 
@@ -88,5 +90,7 @@
       owner: root
       group: wheel
       mode: '0600'
+  notify:
+    - reload pf
   tags:
     - monitoring
