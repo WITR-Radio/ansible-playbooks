@@ -65,14 +65,9 @@
   mysql_user:
     name: root
     password: "{{ mariadb_root_password }}"
-    host: "{{ item }}"
+    host_all: yes
     state: present
     check_implicit_admin: yes
-  with_items:
-    - "{{ ansible_hostname }}"
-    - 127.0.0.1
-    - ::1
-    - localhost
   tags:
     - database
 
@@ -95,14 +90,9 @@
 - name: remove anonymous users
   mysql_user:
     name: ''
-    host: "{{ item }}"
+    host_all: yes
     login_user: root
     login_password: "{{ mariadb_root_password }}"
     state: absent
-  with_items:
-    - "{{ ansible_hostname }}"
-    - 127.0.0.1
-    - ::1
-    - localhost
   tags:
     - database
