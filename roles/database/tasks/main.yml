@@ -17,7 +17,7 @@
 
 - name: install Python 3 MySQL library
   package:
-    name: py3-mysql
+    name: py3-mysqlclient
     state: present
   tags:
     - database
