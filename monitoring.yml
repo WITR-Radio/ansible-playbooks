@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: monitoring
   remote_user: _ansible
   become: yes
   roles:
