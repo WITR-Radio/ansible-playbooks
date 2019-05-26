@@ -1,6 +1,10 @@
-server "{{ tls_cname }}.witr.rit.edu" {
+# {{ ansible_managed }}
+# re-enable this line once you've fixed our dumb naming system
+# server "{{ tls_cname }}.witr.rit.edu" {
+server "{{ ansible_hostname }}.rit.edu" {
 	listen on egress port 80
-	alias "{{ ansible_hostname }}.rit.edu"
+    # also re-enable this one too
+	# alias "{{ ansible_hostname }}.rit.edu"
 	
 	root "/htdocs"
 	location "/.well-known/acme-challenge/*" {
@@ -9,6 +13,8 @@ server "{{ tls_cname }}.witr.rit.edu" {
 	}
 	
 	location "/*" {
-		block return 301 "https://{{ ansible_hostname }}.rit.edu$REQUEST_URI"
+        # and this one
+		# block return 301 "https://{{ tls_cname }}.witr.rit.edu$REQUEST_URI"
+        block return 301 "https://{{ansible_hostname}}.rit.edu$REQUEST_URI"
 	}
 }
