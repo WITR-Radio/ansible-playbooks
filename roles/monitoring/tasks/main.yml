@@ -70,7 +70,7 @@
 - name: install httpd.conf to suppot Zabbix
   template:
       src: httpd-zabbix.conf.j2
-      path: /etc/httpd.conf
+      dest: /etc/httpd.conf
       validate: /usr/sbin/httpd -nf %s
       backup: yes
       owner: root
@@ -84,7 +84,7 @@
 - name: install pf.conf to support Zabbix
   template:
       src: pf-zabbix.conf.j2
-      path: /etc/pf.conf
+      dest: /etc/pf.conf
       validate: /sbin/pfctl -nf %s
       backup: yes
       owner: root
