@@ -67,7 +67,6 @@
     password: "{{ mariadb_root_password }}"
     host_all: yes
     state: present
-    check_implicit_admin: yes
   tags:
     - database
 
