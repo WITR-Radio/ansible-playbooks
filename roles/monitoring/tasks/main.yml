@@ -130,7 +130,7 @@
 
 - name: enable and start php71-fpm
   service:
-      name: php71-fpm
+      name: php71_fpm
       enabled: yes
       state: started
   tags:
