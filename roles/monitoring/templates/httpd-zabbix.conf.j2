@@ -1,0 +1,34 @@
+# {{ ansible_managed }}
+
+logdir "/var/www/logs"
+
+server "{{ ansible_hostname }}.rit.edu" {
+    listen on egress port 80
+    root "/zabbix"
+    
+    location "/.well-known/acme-challenge/*" {
+        root "/acme"
+        request strip 2
+    }
+
+    location "/*" {
+        block return 301 "https://{{ ansible_hostname }}.rit.edu$REQUEST_URI"
+    }
+}
+
+server "{{ ansible_hostname }}.rit.edu" {
+    listen on egress tls port 443
+
+    tls certificate "/etc/ssl/{{ ansible_hostname }}.rit.edu.fullchain.pem"
+    tls key "/etc/ssl/private/{{ ansible_hostname }}.rit.edu.key"
+
+    root "/htdocs/zabbix"
+
+    location "/*.php" {
+        fastcgi socket "/run/php-fpm.sock"
+    }
+}
+
+types {
+    include "/usr/share/misc/mime.types"
+}

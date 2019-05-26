@@ -1,0 +1,18 @@
+#       {{ ansible-managed }}
+#       $OpenBSD: pf.conf,v 1.4 2018/07/10 19:28:35 henning Exp $
+#
+# See pf.conf(5) for syntax and examples.
+
+set skip on lo  # ignore traffic on loopback
+
+block return    # block stateless traffic
+pass            # establish keep-state
+block drop in on egress # drop otherwise unpermitted inbound packets 
+
+# By default, do not permit remote connections to X11
+block return in on ! lo0 proto tcp to port 6000:6010
+
+# allow access for SSH, HTTP, and HTTPS from any host
+pass in on egress proto tcp from any to port ssh
+pass in on egress proto tcp from any to port http
+pass in on egress proto tcp from any to port https
