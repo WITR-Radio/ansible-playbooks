@@ -60,7 +60,7 @@
     - monitoring
 
 - name: create schema check file to preserve idempotence (poorly)
-  when: schema_status_file.exists == False
+  when: schema_status_file.stat.exists == False
   file:
       state: file
       path: "{{ zabbix_schema_status_path }}"
