@@ -41,7 +41,7 @@
 
 - name: check to see if schemas need to be imported
   stat:
-      name: "{{ zabbix_schema_status_path }}"
+      path: "{{ zabbix_schema_status_path }}"
   register: schema_status_file
   tags:
     - monitoring
