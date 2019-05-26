@@ -61,7 +61,9 @@
     - letsencrypt
 
 - name: call acme-client
-  command: "/usr/sbin/acme-client -AD {{ tls_cname }}.witr.rit.edu"
+  # re-enable this line once you've fixed our bad naming system
+  # command: "/usr/sbin/acme-client -AD {{ tls_cname }}.witr.rit.edu"
+  command: "/usr/sbin/acme-client -AD {{ ansible_hostname }}.rit.edu"
   register: acme_result
   failed_when: "acme_result.rc != 0 and acme_result.rc != 2"
   changed_when: "acme_result.rc == 0"
@@ -75,7 +77,7 @@
     name: "acme-client automatic renewal"
     minute: "45"
     hour: "1"
-    job: "sleep $((RANDOM \\% 2048)) && acme-client {{ tls_cname }}.witr.rit.edu && rcctl reload httpd"
+    job: "sleep $((RANDOM \\% 2048)) && acme-client {{ ansible_hostname }}.rit.edu && rcctl reload httpd"
   tags:
     - letsencrypt
 
