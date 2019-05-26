@@ -1,4 +1,4 @@
 ---
 
 mariadb_root_password: ''
-mariadb_socket_path: '/var/www/var/run/mysql/mysql.sock'
+mariadb_socket_path: '/var/run/mysql/mysql.sock'
