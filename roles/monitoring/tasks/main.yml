@@ -47,7 +47,7 @@
     - monitoring
 
 - name: import Zabbix schemas
-  when: schema_status_file.stat.exists is false
+  when: schema_status_file.stat.exists is False
   mysql_db:
       state: import
       name: zabbix
