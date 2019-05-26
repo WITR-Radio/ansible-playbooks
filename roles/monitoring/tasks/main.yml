@@ -110,6 +110,8 @@
       owner: root
       group: wheel
       mode: '0644'
+  tags:
+    - monitoring
 
 - name: link gd, opcache, and zabbix PHP config files into place
   file:
@@ -123,21 +125,29 @@
     - gd
     - opcache
     - zabbix
+  tags:
+    - monitoring
 
 - name: enable and start php71-fpm
   service:
       name: php71-fpm
       enabled: yes
       state: started
+  tags:
+    - monitoring
 
 - name: enable and start zabbix-server
   service:
       name: zabbix_server
       enabled: yes
       state: started
+  tags:
+    - monitoring
 
 - name: enable and start zabbix_agentd
   service:
       name: zabbix_agentd
       enabled: yes
       state: started
+  tags:
+    - monitoring
