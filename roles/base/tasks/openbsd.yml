@@ -47,6 +47,11 @@
       backup: yes
       validate: /usr/sbin/smtpd -nf %s
 
+- name: ensure that there's no .forward file in root's home folder
+  file:
+      state: absent
+      path: /root/.forward
+
 - name: configure doas to permit wheel as root (and root as root)
   copy:
       src: doas.conf
