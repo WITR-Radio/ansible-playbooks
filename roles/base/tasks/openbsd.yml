@@ -8,6 +8,8 @@
       owner: root
       mode: '0744'
       checksum: 'sha512:66700379e7e43748b3dd4beb5534f90a435ef2b9a1c5d8d01fd401ed676c8e663a01b91dcf3c84bb9e2ce688ce582660dcedc4892bf7bae79be3f601ba65e506'
+  tags:
+    - base
 
 - name: add openup to /etc/daily.local
   lineinfile:
@@ -19,15 +21,20 @@
       group: wheel
       owner: root
       mode: '0644'
+  tags:
+    - base
 
 - name: configure mail aliases
-  notify: newaliases
+  notify:
+      - newaliases
   template:
       src: aliases.j2
       dest: /etc/mail/aliases
       owner: root
       group: wheel
       mode: '0644'
+  tags:
+    - base
 
 - name: configure /etc/mail/secrets with root@witr.rit.edu
   copy:
@@ -36,6 +43,8 @@
       owner: root
       group: _smtpd
       mode: '0640'
+  tags:
+    - base
 
 - name: configure smtpd to send root email using root@witr.rit.edu
   template:
@@ -46,11 +55,15 @@
       mode: '0644'
       backup: yes
       validate: /usr/sbin/smtpd -nf %s
+  tags:
+    - base
 
 - name: ensure that there's no .forward file in root's home folder
   file:
       state: absent
       path: /root/.forward
+  tags:
+    - base
 
 - name: configure doas to permit wheel as root (and root as root)
   copy:
@@ -61,3 +74,5 @@
       mode: '0644'
       backup: yes
       validate: /usr/bin/doas -C %s
+  tags:
+    - base
