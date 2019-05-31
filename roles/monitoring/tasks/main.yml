@@ -137,6 +137,8 @@
       owner: www
       group: www
       mode: '0644'
+      # /zabbix doesn't exist, because chroot
+      force: yes
   tags:
     - monitoring
 
