@@ -132,7 +132,8 @@
   file:
       state: link
       path: /var/www/htdocs/zabbix
-      src: /var/www/zabbix
+      # This isn't actually in /, the webserver is chrooted to /var/www/
+      src: /zabbix
       owner: www
       group: www
       mode: '0644'
