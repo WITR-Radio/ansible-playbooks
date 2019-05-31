@@ -136,6 +136,8 @@
       owner: www
       group: www
       mode: '0644'
+  tags:
+    - monitoring
 
 - name: enable and start php71-fpm
   service:
