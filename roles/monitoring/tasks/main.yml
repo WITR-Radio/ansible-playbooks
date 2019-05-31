@@ -128,6 +128,15 @@
   tags:
     - monitoring
 
+- name: link zabbix-web folder into place
+  file:
+      state: link
+      path: /var/www/htdocs/zabbix
+      src: /var/www/zabbix
+      owner: www
+      group: www
+      mode: '0644'
+
 - name: enable and start php71-fpm
   service:
       name: php71_fpm
