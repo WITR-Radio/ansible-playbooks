@@ -18,15 +18,23 @@ server "{{ ansible_hostname }}.rit.edu" {
 
 server "{{ ansible_hostname }}.rit.edu" {
     listen on egress tls port 443
+    directory index "index.php"
 
     tls certificate "/etc/ssl/{{ ansible_hostname }}.rit.edu.fullchain.pem"
     tls key "/etc/ssl/private/{{ ansible_hostname }}.rit.edu.key"
 
-    root "/htdocs/zabbix"
+    connection { max requests 500, timeout 3600 }
+    connection { max request body 8388608 }
+
+    location "/conf/*" {
+        block return 401
+    }
 
     location "/*.php" {
         fastcgi socket "/run/php-fpm.sock"
     }
+
+    root "/zabbix"
 }
 
 types {
