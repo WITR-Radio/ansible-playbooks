@@ -67,6 +67,23 @@
   tags:
     - monitoring
 
+- name: raise shared memory limit for zabbix_server (sysctl.conf)
+  lineinfile:
+      state: present
+      line: kern.shminfo.shmall=1258291
+      create: yes
+      path: /etc/sysctl.conf
+      owner: root
+      group: wheel
+      mode: 0644
+  tags:
+    - monitoring
+
+- name: raise shared memory limit for zabbix_server (sysctl)
+  command: sysctl kern.shminfo.shmall=1258291
+  tags:
+    - monitoring
+
 - name: install httpd.conf to support Zabbix
   template:
       src: httpd-zabbix.conf.j2
