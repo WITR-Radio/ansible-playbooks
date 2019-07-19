@@ -8,7 +8,7 @@ use HTTP::Request;
 use Data::Dumper qw(Dumper);
 
 my $webhook_url = "{{ discord_webhook_url }}";
-my $domain_name = "{{ ansible_hostname }}.rit.edu";
+my $domain_name = "https://{{ ansible_hostname }}.rit.edu/";
 
 my $problem_icon = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-warning-icon.png";
 my $resolved_icon = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-check-icon.png";
