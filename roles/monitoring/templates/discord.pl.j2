@@ -1,0 +1,55 @@
+#!/usr/local/bin/perl
+use strict;
+use warnings;
+use JSON;
+use LWP::UserAgent;
+use HTTP::Response;
+use HTTP::Request;
+use Data::Dumper qw(Dumper);
+
+my $webhook_url = "{{ discord_webhook_url }}";
+my $domain_name = "{{ ansible_hostname }}.rit.edu";
+
+my $problem_icon = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-warning-icon.png";
+my $resolved_icon = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-check-icon.png";
+my $unknown_icon = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-question-icon.png";
+
+my $to = $ARGV[0];
+my $subject = $ARGV[1];
+my $body = $ARGV[2];
+my $icon = "";
+if ($subject =~ /^(PROBLEM:|Problem:).*$/) {
+    $icon = $problem_icon;
+} elsif ($subject =~ /^(OK:|Resolved:).*$/) {
+    $icon = $resolved_icon;
+} else {
+    $icon = $unknown_icon;
+}
+
+my %payload_obj = (
+    "embeds" => [
+        {
+            "title" => $subject,
+            "description" => $body,
+            "url" => $domain_name,
+            "thumbnail" => {
+                "url" => $icon
+            }
+        },
+    ]
+);
+
+my $json_payload = encode_json \%payload_obj;
+my $request = HTTP::Request->new("POST", $webhook_url);
+$request->header('User-Agent' => 'discord-webhook.pl/0.1, like libwww-perl (engineer@witr.rit.edu)');
+$request->header('Content-Type' => 'application/json');
+$request->content($json_payload);
+
+my $browser = LWP::UserAgent->new;
+my $response = $browser->request($request);
+
+if ($response->is_success()) {
+    exit 0;
+} else {
+    exit 1;
+}

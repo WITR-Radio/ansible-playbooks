@@ -172,10 +172,10 @@
   tags:
     - monitoring
 
-- name: install /etc/zabbix/alertscripts/discord.sh
+- name: install /etc/zabbix/alertscripts/discord.pl
   template:
-      src: discord.sh.j2
-      dest: /etc/zabbix/alertscripts/discord.sh
+      src: discord.pl.j2
+      dest: /etc/zabbix/alertscripts/discord.pl
       backup: yes
       owner: root
       group: _zabbix
