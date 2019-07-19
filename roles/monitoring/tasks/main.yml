@@ -22,6 +22,20 @@
   tags:
     - monitoring
 
+- name: install php-mysqli
+  package:
+      name: php-mysqli%7.1
+      state: present
+  tags:
+    - monitoring
+
+- name: fix the permissions on /var/www/zabbix (because they have no +x?)
+  file:
+      path: /var/www/zabbix
+      mode: "0755"
+  tags:
+    - monitoring
+
 - name: ensure the zabbix database exists in MySQL
   mysql_db:
       name: zabbix
@@ -120,17 +134,7 @@
   tags:
     - monitoring
 
-- name: install php-7.1.ini to support Zabbix
-  template:
-      src: php-7.1.ini.j2
-      dest: /etc/php-7.1.ini
-      owner: root
-      group: wheel
-      mode: '0644'
-  tags:
-    - monitoring
-
-- name: link gd, opcache, and zabbix PHP config files into place
+- name: link gd, opcache, mysqli, and zabbix PHP config files into place
   file:
       state: link
       path: /etc/php-7.1/{{ item }}.ini
@@ -142,24 +146,22 @@
     - gd
     - opcache
     - zabbix
+    - mysqli
   tags:
     - monitoring
 
-- name: link zabbix-web folder into place
-  file:
-      state: link
-      path: /var/www/htdocs/zabbix
-      # This isn't actually in /, the webserver is chrooted to /var/www/
-      src: /zabbix
-      owner: www
-      group: www
-      mode: '0644'
-      # /zabbix doesn't exist, because chroot
-      force: yes
+- name: install zabbix.conf.php
+  template:
+      src: zabbix.conf.php.j2
+      dest: /var/www/zabbix/conf/zabbix.conf.php
+      backup: yes
+      owner: root
+      group: bin
+      mode: '0640'
   tags:
     - monitoring
 
-- name: enable and start php71-fpm
+- name: enable and start php71_fpm
   service:
       name: php71_fpm
       enabled: yes
