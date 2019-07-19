@@ -156,7 +156,7 @@
       dest: /var/www/zabbix/conf/zabbix.conf.php
       backup: yes
       owner: root
-      group: bin
+      group: www
       mode: '0640'
   tags:
     - monitoring
