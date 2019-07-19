@@ -172,6 +172,17 @@
   tags:
     - monitoring
 
+- name: install /etc/zabbix/alertscripts/discord.sh
+  template:
+      src: discord.sh.j2
+      dest: /etc/zabbix/alertscripts/discord.sh
+      backup: yes
+      owner: root
+      group: _zabbix
+      mode: '0550'
+  tags:
+    - monitoring
+
 - name: enable and start php71_fpm
   service:
       name: php71_fpm
