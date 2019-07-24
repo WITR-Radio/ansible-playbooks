@@ -7,25 +7,65 @@ use HTTP::Response;
 use HTTP::Request;
 use Data::Dumper qw(Dumper);
 
+# @brief Extract a key/value metadata hash from the first line of the provided string
+# The first line should look like this:
+# 	#KEY=value#KEY2=value
+# This function doesn't remove the first line, so if you don't want it there,
+# you have to do that yourself.
+#
+# @param the string that has a hash in the first line
+# @return The hash version of the metadata in the string
+sub extract_metadata {
+	# Because Perl doesn't have named arguments, I guess
+	my $msg_body = $_[0];
+	my %metadata_hash;
+	my @msg_body_arr = split ' ', $msg_body;
+	my $metadata_line = $msg_body_arr[0];
+	my @metadata_split = split /#/, $metadata_line;
+	foreach my $metadata_pair (@metadata_split) {
+		if (index($metadata_pair, "=") != -1) {
+			my ($m_key, $m_value) = split /=/, $metadata_pair;
+			$metadata_hash{$m_key} = $m_value;
+		}
+	}
+	return %metadata_hash;
+}
+
+# Secret: our Discord webhook URL
 my $webhook_url = "{{ discord_webhook_url }}";
 my $domain_name = "https://{{ ansible_hostname }}.rit.edu/";
 
-my $problem_icon = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-warning-icon.png";
-my $resolved_icon = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-check-icon.png";
-my $unknown_icon = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-question-icon.png";
+# Hash of URLs for the preview icons
+my %icon_urls = (
+	"Resolved" => "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-check-icon.png",
+	"Unknown" => "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-question-icon.png",
+	"Comment" => "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/bubble-icon.png",
+	"Information" => "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-info-icon.png",
+	"Warning" => "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-warning-icon.png",
+	"Average" => "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-error-icon.png",
+	"High" => "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/sign-ban-icon.png",
+	"Disaster" => "http://icons.iconarchive.com/icons/paomedia/small-n-flat/96/skull-icon.png"
+);
 
-my $to = $ARGV[0];
-my $subject = $ARGV[1];
-my $body = $ARGV[2];
+# The "subject" of the alert
+my $subject = $ARGV[0];
+# The "body" of the alert
+my $body = $ARGV[1];
+# Pull metadata out of the body, since Zabbix won't let me put variables
+# (except for to, subject, and body) in the parameters
+my %metadata_hash = extract_metadata($body);
+# Strip the metadata line out of the body (because it shouldn't go to Discord)
+$body =~ s/^(?:.*\n){1}//;
+
+# Identify which icon to use based on the ICON metadata key
 my $icon = "";
-if ($subject =~ /^(PROBLEM:|Problem:).*$/) {
-    $icon = $problem_icon;
-} elsif ($subject =~ /^(OK:|Resolved:).*$/) {
-    $icon = $resolved_icon;
+if (exists($metadata_hash{ICON})) {
+	$icon = $icon_urls{$metadata_hash{ICON}};
 } else {
-    $icon = $unknown_icon;
+	$icon = $icon_urls{Unknown};
 }
 
+# This is the Discord webhook JSON format
 my %payload_obj = (
     "embeds" => [
         {
@@ -40,6 +80,8 @@ my %payload_obj = (
 );
 
 my $json_payload = encode_json \%payload_obj;
+
+# Use LWP to make the request
 my $request = HTTP::Request->new("POST", $webhook_url);
 $request->header('User-Agent' => 'discord-webhook.pl/0.1, like libwww-perl (engineer@witr.rit.edu)');
 $request->header('Content-Type' => 'application/json');
