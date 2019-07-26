@@ -18,11 +18,13 @@
   tags:
     - letsencrypt
 
+# Why not a handler?  Handlers are coalesced to the end, but this needs to run
+# now (if at all).
 - name: reload httpd to enable the new configuration (if necessary)
   service:
     name: httpd
     state: reloaded
-  when: "httpd_le.changed"
+  when: "httpd_le.changed" # noqa 503
   tags:
     - letsencrypt
 
@@ -50,9 +52,11 @@
   tags:
     - letsencrypt
 
+# Why not a handler? Handlers are coalesced to the end, but this needs to run
+# now (if at all).
 - name: reload pf to enable new rules (if necessary)
   command: pfctl -f /etc/pf.conf
-  when: "pf_le.changed"
+  when: "pf_le.changed" # noqa 503
   register: pf_reload
   tags:
     - letsencrypt
@@ -92,8 +96,9 @@
   tags:
     - letsencrypt
 
+# Why not a handler?  Consistency.
 - name: reload pf to restore backed-up configuration
   command: pfctl -f /etc/pf.conf
-  when: "pf_reload.changed"
+  when: "pf_reload.changed" # noqa 503
   tags:
     - letsencrypt
