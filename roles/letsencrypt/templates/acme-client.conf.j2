@@ -16,7 +16,7 @@ authority letsencrypt-staging {
 # {#
 # domain {{ tls_cname }}.witr.rit.edu {
 # #}
-
+# Ansible/Jinja eats this line
 domain {{ ansible_hostname }}.rit.edu {
         # and these ones too
         # {#
@@ -25,7 +25,7 @@ domain {{ ansible_hostname }}.rit.edu {
         # domain certificate "/etc/ssl/{{ tls_cname }}.witr.rit.edu.crt"
         # domain full chain certificate "/etc/ssl/{{ tls_cname }}.witr.rit.edu.fullchain.pem"
         # #}
-
+        # Ansible/Jinja eats this line
         domain key "/etc/ssl/private/{{ ansible_hostname }}.rit.edu.key"
         domain certificate "/etc/ssl/{{ ansible_hostname }}.rit.edu.crt"
         domain full chain certificate "/etc/ssl/{{ ansible_hostname }}.rit.edu.fullchain.pem"

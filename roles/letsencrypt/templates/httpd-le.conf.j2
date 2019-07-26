@@ -3,7 +3,7 @@
 # {#
 # server "{{ tls_cname }}.witr.rit.edu" {
 # #}
-
+# Ansible/Jinja eats this line
 server "{{ ansible_hostname }}.rit.edu" {
 	listen on egress port 80
     # also re-enable this one too
@@ -20,7 +20,7 @@ server "{{ ansible_hostname }}.rit.edu" {
 		# {#
         # block return 301 "https://{{ tls_cname }}.witr.rit.edu$REQUEST_URI"
         # #}
-
+        # Ansible/Jinja eats this line
         block return 301 "https://{{ansible_hostname}}.rit.edu$REQUEST_URI"
 	}
 }
