@@ -13,13 +13,17 @@ authority letsencrypt-staging {
 }
 
 # re-enable this line once you've fixed our dumb naming system
-# {# domain {{ tls_cname }}.witr.rit.edu { #}
+# {#
+# domain {{ tls_cname }}.witr.rit.edu {
+# #}
 domain {{ ansible_hostname }}.rit.edu {
         # and these ones too
-        # {# alternative names { {{ ansible_hostname }}.rit.edu }
+        # {#
+        # alternative names { {{ ansible_hostname }}.rit.edu }
         # domain key "/etc/ssl/private/{{ tls_cname }}.witr.rit.edu.key"
         # domain certificate "/etc/ssl/{{ tls_cname }}.witr.rit.edu.crt"
-        # domain full chain certificate "/etc/ssl/{{ tls_cname }}.witr.rit.edu.fullchain.pem" #}
+        # domain full chain certificate "/etc/ssl/{{ tls_cname }}.witr.rit.edu.fullchain.pem"
+        # #}
         domain key "/etc/ssl/private/{{ ansible_hostname }}.rit.edu.key"
         domain certificate "/etc/ssl/{{ ansible_hostname }}.rit.edu.crt"
         domain full chain certificate "/etc/ssl/{{ ansible_hostname }}.rit.edu.fullchain.pem"
