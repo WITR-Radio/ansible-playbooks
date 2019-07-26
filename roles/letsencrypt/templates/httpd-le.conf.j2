@@ -3,6 +3,7 @@
 # {#
 # server "{{ tls_cname }}.witr.rit.edu" {
 # #}
+
 server "{{ ansible_hostname }}.rit.edu" {
 	listen on egress port 80
     # also re-enable this one too
@@ -19,6 +20,7 @@ server "{{ ansible_hostname }}.rit.edu" {
 		# {#
         # block return 301 "https://{{ tls_cname }}.witr.rit.edu$REQUEST_URI"
         # #}
+
         block return 301 "https://{{ansible_hostname}}.rit.edu$REQUEST_URI"
 	}
 }
