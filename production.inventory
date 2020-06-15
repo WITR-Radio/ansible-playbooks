@@ -1,25 +1,25 @@
-[rivendell-db]
+[rivendell_db]
 witr-rvdl-1.rit.edu
 
-[rivendell-music]
+[rivendell_music]
 witr-nfs-1.rit.edu
 
-[new-web]
+[new_web]
 witr-www-1.rit.edu
 
-[old-web]
+[old_web]
 drizzy.rit.edu
 
-[old-db]
+[old_db]
 ferg.rit.edu
 
-[new-db]
+[new_db]
 witr-db-1.rit.edu
 
 [orchestration]
 witr-shepherd.rit.edu
 
-[production-share]
+[production_share]
 wayne.rit.edu
 
 [virtualization]
