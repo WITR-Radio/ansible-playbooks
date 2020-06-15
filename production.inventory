@@ -16,9 +16,6 @@ ferg.rit.edu
 [new_db]
 witr-db-1.rit.edu
 
-[orchestration]
-witr-shepherd.rit.edu
-
 [production_share]
 wayne.rit.edu
 
@@ -34,3 +31,6 @@ hova.rit.edu
 
 [monitoring]
 witr-monitoring-1.rit.edu
+
+[logger]
+moonbounce.rit.edu
