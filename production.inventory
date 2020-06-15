@@ -19,10 +19,6 @@ witr-db-1.rit.edu
 [production_share]
 wayne.rit.edu
 
-[virtualization]
-witr-proxmox-1.rit.edu
-witr-proxmox-2.rit.edu
-
 [wiki]
 wayne.rit.edu
 
