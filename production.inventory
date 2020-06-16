@@ -30,3 +30,6 @@ witr-monitoring-1.rit.edu
 
 [logger]
 moonbounce.rit.edu
+
+[needs_doas]
+witr-monitoring-1.rit.edu
