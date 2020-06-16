@@ -1,5 +1,46 @@
 ---
 
+- name: uninstall openup (if present)
+  file:
+      state: absent
+      path: /usr/sbin/openup
+
+- name: add syspatch check to daily.local
+  lineinfile:
+      state: present
+      line: syspatch -c
+      path: /etc/daily.local
+      backup: yes
+      create: yes
+      group: wheel
+      owner: root
+      mode: '0644'
+  tags:
+    - base
+
+- name: add package updates check to daily.local
+  lineinfile:
+      state: present
+      line: pkg_add -nxu
+      path: /etc/daily.local
+      backup: yes
+      create: yes
+      group: wheel
+      owner: root
+      mode: '0644'
+  tags:
+    - base
+
+- name: remove openup from /etc/daily.local
+  lineinfile:
+      state: absent
+      line: openup -c
+      path: /etc/daily.local
+      backup: yes
+      create: no
+  tags:
+    - base
+
 - name: configure mail aliases
   notify:
       - newaliases
