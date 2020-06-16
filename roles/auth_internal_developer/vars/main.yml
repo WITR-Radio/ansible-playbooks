@@ -1,0 +1,8 @@
+---
+
+unauthorized_developers:
+  - { username: "rjm6823", user_id: "2005", comment: "RJ Madsen (ID)" }
+  - { username: "cpr7992", user_id: "2011", comment: "Colin Reilly (ID)" }
+
+authorized_developers:
+  - { username: "gkg1648", user_id: "2014", comment: "Galen Guyer (ID 2019-)" }

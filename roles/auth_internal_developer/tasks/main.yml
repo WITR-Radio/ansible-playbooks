@@ -1,7 +1,13 @@
 ---
 
-- name: ensure all authorized internal developers exist and all unauthorized internal developers do not
-  include_tasks: "{{ item }}"
-  loop:
-      - rjm6823.yaml
-      - gkg1648.yaml
+- name: ensure all authorized internal developers exist
+  include_tasks: authorized_user.yml
+  loop: "{{ vars.authorized_developers }}"
+  tags:
+    - auth
+
+- name: ensure all unauthorized internal developers do not exist
+  include_tasks: unauthorized_user.yml
+  loop: "{{ vars.unauthorized_developers }}"
+  tags:
+    - auth

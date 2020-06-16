@@ -10,22 +10,16 @@
   tags:
     - auth
 
-- name: "ensure user {{ item.username }} does not exist"
+- name: "ensure user {{ item.username }} is locked out"
   user:
     name: "{{ item.username }}"
     comment: "{{ item.comment }}"
     uid: "{{ item.user_id }}"
     group: "{{ item.username }}"
-    groups:
-      - wheel
-    state: absent
-  tags:
-    - auth
-
-- name: "ensure group {{ item.username }} does not exist"
-  group:
-    name: "{{ item.username }}"
-    gid: "{{ item.user_id }}"
-    state: absent
+    groups: ""
+    expires: 0
+    password_lock: yes
+    shell: "/usr/bin/false"
+    state: present
   tags:
     - auth
