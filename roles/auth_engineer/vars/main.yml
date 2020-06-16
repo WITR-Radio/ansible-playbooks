@@ -10,7 +10,7 @@ unauthorized_engineers:
   - { username: "elb9768", user_id: "2010", comment: "Elijah Bendinsky (SE 2018-2019)" }
   - { username: "sd8036", user_id: "2012", comment: "Steve DaSilva (GM 2016-2017)" }
   - { username: "axt6773", user_id: "2013", comment: "Arthur Tisseront (PD 2018-2019)" }
+  - { username: "wel2138", user_id: "2007", comment: "William Leuschner (SE&CE 2017-2020)" }
 
 authorized_engineers:
-  - { username: "wel2138", user_id: "2007", comment: "William Leuschner (SE&CE 2017-2020)" }
   - { username: "cnl9674", user_id: "2008", comment: "Noah Lutz (SE 2019-)" }
