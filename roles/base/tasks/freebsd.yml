@@ -1,1 +1,6 @@
 ---
+
+- name: ensure that zabbix-agent is installed
+  package:
+        state: present
+        name: zabbix44-agent
