@@ -2,16 +2,16 @@
 
 # Run OS-specific task sets
 - import_tasks: openbsd.yml
-  when: ansible_facts['os_family']|lower == 'openbsd'
+  when: ansible_distribution == "OpenBSD"
 
 - import_tasks: freebsd.yml
-  when: ansible_facts['os_family']|lower == 'freebsd'
+  when: ansible_distribution == "FreeBSD"
 
 - import_tasks: rhel6.yml
-  when: ansible_facts['os_family']|lower == 'redhat' and ansible_lsb['major_release']|int == 6
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == '6'
 
 - import_tasks: rhel7.yml
-  when: ansible_facts['os_family']|lower == 'redhat' and ansible_lsb['major_release']|int == 7
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == '7'
 
 # Run OS-independent task sets
 - name: install /etc/issue
