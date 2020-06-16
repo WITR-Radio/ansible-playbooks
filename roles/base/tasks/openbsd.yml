@@ -1,29 +1,5 @@
 ---
 
-- name: install openup
-  get_url:
-      url: https://stable.mtier.org/openup
-      dest: /usr/sbin/openup
-      group: wheel
-      owner: root
-      mode: '0744'
-      checksum: 'sha512:66700379e7e43748b3dd4beb5534f90a435ef2b9a1c5d8d01fd401ed676c8e663a01b91dcf3c84bb9e2ce688ce582660dcedc4892bf7bae79be3f601ba65e506'
-  tags:
-    - base
-
-- name: add openup to /etc/daily.local
-  lineinfile:
-      state: present
-      line: openup -c
-      path: /etc/daily.local
-      backup: yes
-      create: yes
-      group: wheel
-      owner: root
-      mode: '0644'
-  tags:
-    - base
-
 - name: configure mail aliases
   notify:
       - newaliases
