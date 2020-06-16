@@ -1,5 +1,13 @@
 ---
 
+- name: "ensure group {{ item.username }} exists"
+  group:
+    name: "{{ item.username }}"
+    gid: "{{ item.user_id }}"
+    state: present
+  tags:
+    - auth
+
 - name: "ensure user {{ item.username }} is locked out"
   user:
     name: "{{ item.username }}"
