@@ -6,11 +6,11 @@ unauthorized_engineers:
   - { username: "bbr6621", user_id: "2003", comment: "Ben Reynolds (SE&CE)" }
   - { username: "jpb5292", user_id: "2004", comment: "Phil Betley (CE)" }
   - { username: "clc5688", user_id: "2006", comment: "Chris Cmolik (CE)" }
+  - { username: "wel2138", user_id: "2007", comment: "William Leuschner (SE&CE 2017-2020)" }
   - { username: "mxc9798", user_id: "2009", comment: "Michael Canning (CE 2018-2019)" }
   - { username: "elb9768", user_id: "2010", comment: "Elijah Bendinsky (SE 2018-2019)" }
   - { username: "sd8036", user_id: "2012", comment: "Steve DaSilva (GM 2016-2017)" }
   - { username: "axt6773", user_id: "2013", comment: "Arthur Tisseront (PD 2018-2019)" }
-  - { username: "wel2138", user_id: "2007", comment: "William Leuschner (SE&CE 2017-2020)" }
 
 authorized_engineers:
   - { username: "cnl9674", user_id: "2008", comment: "Noah Lutz (SE 2019-)" }
