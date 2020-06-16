@@ -1,0 +1,39 @@
+---
+
+unauthorized_engineers:
+  - username: vxi6514
+    user_id: 2001
+	comment: Vlad Ionescu (CE)
+  - username: clc5688
+    user_id: 2006
+    comment: Chris Cmolik (CE)
+  - username: jxs6565
+    user_id: 2002
+	comment: Joshua Singh (CE)
+  - username: bbr6621
+    user_id: 2003
+	comment: Ben Reynolds (SE&CE)
+  - username: jpb5292
+    user_id: 2004
+	comment: Phil Betley (CE)
+  - username: mxc9798
+    user_id: 2009
+	comment: Michael Canning (CE 2018-2019)
+
+unauthorized_developers:
+  - username: rjm6823
+    user_id: 2005
+	comment: RJ Madsen (ID)
+
+authorized_engineers:
+  - username: wel2138
+    user_id: 2007
+	comment: William Leuschner (SE&CE 2017-2020)
+  - username: cnl9674
+    user_id: 2008
+	comment: Noah Lutz (SE 2019-)
+
+authorized_developers:
+  - username: gkg1648
+    user_id: 2012
+	comment: Galen Guyer (ID 2019-)

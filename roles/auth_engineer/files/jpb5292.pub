@@ -1,28 +1,4 @@
----
-
-- name: ensure group jpb5292 does not exist
-  group:
-      name: jpb5292
-      gid: 2004
-      state: absent
-  tags:
-    - auth
-
-- name: ensure user jpb5292 does not exist
-  user:
-      name: jpb5292
-      uid: 2004
-      group: jpb5292
-      groups: 
-        - wheel
-      state: absent
-  tags:
-    - auth
-
-- name: ensure jpb5292's SSH key does not exist
-  authorized_key:
-      key: |
-        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdb7lS0SOyIoHVlUsiXCrshWj9USWWgKakL2jTcahxdlZeesPkwLtAhex+q2/Ru1CvTRljcTPrLHPHcEn1crOYSBs7e5hBji982mH5cREdSDVPRxfRVrqngE6HYs9rJQCXqFfneGCucMeSipRqIyGZLMEMmvMKgzhWnd+Zs3LEGF0Q+k6Mdq4uLThFndqJ7yXDPkWJyna6R2v6R+EBwG8VGs5MTOUxzetAcO2FhPrKx66W78QTYoTWE12/HA8P0bwkDC8TA0NE7+BjEjon3v1ddxeYs76V+pZUVWomXQBfe6hhQS8fGXNQLtr2eWl8VUOIpB2IWuI8Bp90asJhBIDb
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdb7lS0SOyIoHVlUsiXCrshWj9USWWgKakL2jTcahxdlZeesPkwLtAhex+q2/Ru1CvTRljcTPrLHPHcEn1crOYSBs7e5hBji982mH5cREdSDVPRxfRVrqngE6HYs9rJQCXqFfneGCucMeSipRqIyGZLMEMmvMKgzhWnd+Zs3LEGF0Q+k6Mdq4uLThFndqJ7yXDPkWJyna6R2v6R+EBwG8VGs5MTOUxzetAcO2FhPrKx66W78QTYoTWE12/HA8P0bwkDC8TA0NE7+BjEjon3v1ddxeYs76V+pZUVWomXQBfe6hhQS8fGXNQLtr2eWl8VUOIpB2IWuI8Bp90asJhBIDb
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkz+ucWcOsM7EDqrreMj9QqENowkpkEqpWoJPV/hz7H178cEL8PlAv+tqsCdnL4uxTHmImGPzQLz4U89HD88+9Q46w9Y6ulvGHjUuMt7bsqUWUKsIwBuX7STj2+yBiqaU5AM2+DkxscgdMCOLwWdyX0ctnDDLsaG5HVPcKMPus8OaXvvGiQSuQrtJxwIufFBPdEyeY/TyVBpBCnjD7dMnaPy5k3VGavssSc6aovHi+9AiVsZGHBxKwA625uJgnpJRYRYXEc5W0s/sa4QROBjaqy2tqMpWRYL4oUHgQqCnHEZ6/+1Wi8JZFUMu4vZ2/mqTRo5QB1sCGms2tyETnJVXz
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWmDhPVBBhK6SHoR8JzehJ4DtME6jCDB/wE09pXG9HcLxvy/eferjYA5UMjTre0lCHnM2Fl6hjI60I2lUAsOjYK3aiRfla5QL6ha0oKmXD9W1QiFMAqvH0fomHY58uRejAS0t9eNbqXaS9ZCRsMV19N3n8QMCiqvZSfBAJA7dKztkV7BfGz6WeHSyCNMsNW5KBu6s2HvhFMFx8FRgh+NSgQHoGuLm6R/5n8u6s2Cob7j5t7fGmxjFOrQJ8IsYTuLDoLWVV8WnYnbAk2I7RQCpJ+Xd3he2XA9iPfFMuNorm7UzH5lkHiueB3YAykkL6bdRTyzbrzAIli2tuWwnsOPcT
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8oaBdjKloX6u3guCMDD5MgjddP9RD1/33KBaAH38ce/EChzXtqUWzfFEFvWU5+Jdtb5BbxKuCn/4Q/a+Ok4DJrIssMKA4tiZ5GuVhjhPweqwPcwyn6Ey9PWYbQb934B0n/9otHUGcPsFk6D213kwsM6l/U4j3tJbX2heHcTJGHNfbgdR1uvZKVr84v4pgwb8TGLl8u2FxOQAgPONvJCK+m1qiIl8mQ6QEcwteZt1lcKJkO451KC/F3MX0uN/7jFSKzw5qdR/TEZ4FRwV7HBnsXDYPaQbMaOmxOkDIoLKu9LvumKoZmQvzlegDjYDtzjXYx+YGf4UgUPfbRnqjBWMJ
@@ -30,9 +6,3 @@ ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA07jOIcUgOHY4UuY3skiomsdHeHb6ECmW219ldUbLcy9A
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvSRCLWcRJDxFRq8sBf6+6xYVx4jaANvXnSZDIo+nixJDi/uirBw7PtHJx3kzZlIbdeFIPEnoTW+zoGtn6JGXyrg7ptV/v8Qzggcxr18wzW2agOxK7X78bVr1Pz3cA8NYfMNc/6pd0gw4Jv1AN+Fe5gmILfs9V30FtlKBmbTOe5Ifu2RpB2ztiaAuC66AU77XPsj3wRpOyOZ2oY/1Eiup/KPU7ca2A3iRZlk8tdekVJcPhdFbNsnxxgtBWL746umwl/y6jSirHBeCrXFWsPN22ntuv8djMwhCs4ul+MRnQWLkURG+eAGj7eDqEsOyq8fH1/48Ck6ifdgVXi+fJP8lGQ==
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8L58w6XvgZnUJD2cyiZc9D9dbL6Wdnq7pdzrAGPDTW780oDfeHxtg6c3lmUZYPdOfyIqRdPnkfHx7krUpBxUaBXYEU5l7UptzNAz2Da1hinzuFlRxgLt9B23Aj9w+pokqsNcuFHlvSNZgW9cO9o+RTRcNHRNJDYurM+NJJW3+FscSBynnNrOPZY48/jdpoAvveWff1XhktIiw8weIyE/vokdnV52wO+fmagM9qr8fPuiz9mAyd5/60Q5IPYerEyh9GAlC2ObpTvJTuqEXWzNoUoKYHMwdYXGRZNL/yeDUgMW7xhrXlV2YH8oZSd9V317RlYJXIKcD49lWq2jJD15L
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7XCx6PPez8IJ5lQaU9I5qlW2+CrbB1kEFmf8DkP/7xorFNDTlWLSsfuWwXlhfGSiN8Yq6bAo+ZOZWXG9JXnlxxInFxNEdcvB9EjZdUAzHCxb2fofirn5JrpjIUfc9+s2swobkVBi13uWDqg7IiMn9sBlUZrYHLzNAVB6J45fwV95g2jXegxo0cMFaG5AsrFU/VA2bev12rYLlITrZ8VIfXCbuAeJBPU27z63LqzARyq4CVmTGlOu0D7nb6CWNxgGF/wQic+t0fzactjKArc/xc1udPf83kTWlwKsYBiybCCuLhYvRBYs+FQQkuvKPGtisQdBKZub14SsGnCU8YXm9
-      user: jpb5292
-      state: absent
-      manage_dir: yes
-      exclusive: yes
-  tags:
-    - auth

@@ -1,0 +1,32 @@
+---
+
+- name: ensure {{ item.username }}'s SSH key does not exist
+  authorized_key:
+	key: |
+	  {{ lookup('file', item.username+'.pub') }}
+	user: {{ item.username }}
+	state: absent
+	manage_dir: yes
+	exclusive: yes
+  tags:
+	- auth
+
+- name: ensure user {{ item.username }} does not exist
+  user:
+	name: {{ item.username }}
+	comment: {{ item.comment }}
+	uid: {{ item.user_id }}
+	group: {{ item.username }}
+	groups:
+	  - wheel
+	state: absent
+  tags:
+	- auth
+
+- name: ensure group {{ item.username }} does not exist
+  group:
+	name: {{ item.username }}
+	gid: {{ item.user_id }}
+	state: absent
+  tags:
+	- auth

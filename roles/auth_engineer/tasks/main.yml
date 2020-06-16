@@ -1,13 +1,10 @@
 ---
 
-- name: ensure all authorized engineers exist and all unauthorized engineers do not
-  include_tasks: "{{ item }}"
-  loop:
-      - wel2138.yaml
-      - cnl9674.yaml
-      - vxi6514.yaml
-      - clc5688.yaml
-      - jxs6565.yaml
-      - bbr6221.yaml
-      - mxc9798.yaml
-      - gkg1648.yaml
+- name: ensure all authorized engineers exist
+  include_tasks: authorized_user.yml
+  loop: "{{ vars.authorized_engineers }}"
+  
+- name: ensure all unauthorized engineers do not exist
+  include_tasks: unauthorized_user.yml
+  loop: "{{ vars.unauthorized_engineers }}"
+  
