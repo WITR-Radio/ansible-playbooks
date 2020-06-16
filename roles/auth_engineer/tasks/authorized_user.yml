@@ -1,30 +1,29 @@
 ---
 
-- name: ensure group {{ item.username }} exists
+- name: "ensure group {{ item.username }} exists"
   group:
-    name: {{ item.username }}
-    gid: {{ item.user_id }}
+    name: "{{ item.username }}"
+    gid: "{{ item.user_id }}"
     state: present
   tags:
     - auth
 
-- name: ensure user {{ item.username }} exists
+- name: "ensure user {{ item.username }} exists"
   user:
-    name: {{ item.username }}
-    comment: {{ item.comment }}
-    uid: {{ item.user_id }}
-    group: {{ item.username }}
+    name: "{{ item.username }}"
+    comment: "{{ item.comment }}"
+    uid: "{{ item.user_id }}"
+    group: "{{ item.username }}"
     groups:
       - wheel
     state: present
   tags:
     - auth
 
-- name: ensure {{ item.username }}'s SSH key exists
+- name: "ensure {{ item.username }}'s SSH key exists"
   authorized_key:
-    key: |
-      {{ lookup('file', item.username+'.pub') }}
-    user: {{ item.username }}
+    key: "{{ lookup('file', item.username+'.pub') }}"
+    user: "{{ item.username }}"
     state: present
     manage_dir: yes
     exclusive: yes
