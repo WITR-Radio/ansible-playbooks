@@ -1,0 +1,30 @@
+---
+
+- name: ensure group wel2138 exists
+  group:
+      name: wel2138
+      gid: 2007
+      state: present
+  tags:
+    - auth
+
+- name: ensure user wel2138 exists
+  user:
+      name: wel2138
+      uid: 2007
+      group: wel2138
+      groups: 
+        - wheel
+      state: present
+  tags:
+    - auth
+
+- name: ensure wel2138's SSH key exists
+  authorized_key:
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCY3voGYiXbi0comuGuZslOU2D8JYKn2W6j43zQRbEC4ek/naq6+UDkan5xNLYe8vWbUz94yMhM0PfwTggMHQDH5duTlRUtEIu3r4pE8hJBcl7452FDMH2B+e3ddtPgW6uZFDMIYpNhMMvRVrhfhMZBU9IqT8p2aLXF1ujjrBZEXDEcGbIaEjY8re80X92NWKvBCudSW1OHZt7tXsTnowlLTIxu+3oK2uBu3qIqXHEFB6pj4RyX1QGTqV7tuePbl0c3/Y+tFT3/AbCuvHGCiBpqp82CajITYdUa9K3wYlflo0gINE/LQ6aagWew/aHGDGySikFDsHHTjkbnVDXmdtYN cardno:000606985599"
+      user: wel2138
+      state: present
+      manage_dir: yes
+      exclusive: yes
+  tags:
+    - auth

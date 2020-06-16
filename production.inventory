@@ -33,3 +33,11 @@ moonbounce.rit.edu
 
 [needs_doas]
 witr-monitoring-1.rit.edu
+
+[internal_developer_accessible:children]
+logger
+wiki
+new_web
+new_db
+old_web
+old_db

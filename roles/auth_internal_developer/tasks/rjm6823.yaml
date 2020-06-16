@@ -1,0 +1,31 @@
+---
+
+- name: ensure group rjm6823 does not exist
+  group:
+      name: rjm6823
+      gid: 2005
+      state: absent
+  tags:
+    - auth
+
+- name: ensure user rjm6823 does not exist
+  user:
+      name: rjm6823
+      uid: 2005
+      group: rjm6823
+      groups: 
+        - wheel
+      state: absent
+  tags:
+    - auth
+
+- name: ensure rjm6823's SSH key does not exist
+  authorized_key:
+      key: |
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDapohzTfKwqX1sIJY9yq05yM5bQ6nKJVw3smUb0s1US1H2/GPPrvS99VssPcVHfNcYwLhpY0dRqlMJ8S/dzcQsR+mhNZ0DgeJQ8dtZbc+uoCYSrYoRTLNVWMRcF2Q5D2WnO+t6YVQoDyetKzvsvljl2C1BUhfyMk4CPhZjVmMQmYZAKorZk+wy++RSGttaOtdVgOaC/uaR7DGzR6Afwg+M+odbW5lG/kOwEftpmGiy31TEQFT0MvTjHuH1AMn0F2Ti8d0ff3oSuMxRmVZq0A7hoyg7T+YgC5SL19mslOljaqH0zHVJDIsasK1lx7j6kBnsF/TMcit8UhvXhHAq6FDF software@witr.rit.edu
+      user: rjm6823
+      state: absent
+      manage_dir: yes
+      exclusive: yes
+  tags:
+    - auth

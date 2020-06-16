@@ -1,7 +1,0 @@
----
-
-- name: Create all users
-  import_tasks: "{{ item }}"
-  loop:
-      - wel2138.yaml
-      - cnl9674.yaml

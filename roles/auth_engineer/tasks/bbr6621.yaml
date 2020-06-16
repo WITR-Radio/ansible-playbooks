@@ -1,0 +1,30 @@
+---
+
+- name: ensure group bbr6621 does not exist
+  group:
+      name: bbr6621
+      gid: 2003
+      state: absent
+  tags:
+    - auth
+
+- name: ensure user bbr6621 does not exist
+  user:
+      name: bbr6621
+      uid: 2003
+      group: bbr6621
+      groups: 
+        - wheel
+      state: absent
+  tags:
+    - auth
+
+- name: ensure bbr6621's SSH key does not exist
+  authorized_key:
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAm+JVGEG/dSdmryfgpYK2x73LF6qFb32cfHiYa+BNxuY8cc3k6gpZ1B6iW88onwOH1v/W+GkLhQ54umHILet0mut6cEVTOt+fpm8QlZRCoybtz6BOGsJaI0uyrM/+MA+NuEbF7EHxcsru6wnZ68uwt0FTirWhP9n4be7uYF8M+842QeayjBrUb6T0aJnztykbKMb3ph+QiQHQYrwtWjKBFHI641cmpWSr963qRAuRNAjRit5ClpATXNPvrd7Y3Eh+A4/IdgWXdr5VIoaZ8zc2HtAm800ksEeRZa4oAPH5Lprr7vD1RRpw5LO2Gn3CYKEDD5JZfVRLbgGx3JHSgT837w=="
+      user: bbr6621
+      state: absent
+      manage_dir: yes
+      exclusive: yes
+  tags:
+    - auth

@@ -1,7 +1,13 @@
 ---
 
+- hosts: internal_developer_accessible
+  remote_user: _ansible
+  become: yes
+  roles:
+      - auth_internal_developer
+
 - hosts: all
   remote_user: _ansible
   become: yes
   roles:
-      - auth
+      - auth_engineer
