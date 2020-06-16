@@ -1,7 +1,7 @@
 ---
 
 - name: ensure all authorized engineers exist and all unauthorized engineers do not
-  import_tasks: "{{ item }}"
+  include_tasks: "{{ item }}"
   loop:
       - wel2138.yaml
       - cnl9674.yaml

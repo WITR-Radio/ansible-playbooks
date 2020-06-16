@@ -1,7 +1,7 @@
 ---
 
 - name: ensure all authorized internal developers exist and all unauthorized internal developers do not
-  import_tasks: "{{ item }}"
+  include_tasks: "{{ item }}"
   loop:
       - rjm6823.yaml
       - gkg1648.yaml
