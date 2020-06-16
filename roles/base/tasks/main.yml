@@ -8,10 +8,10 @@
   when: ansible_facts['os_family']|lower == 'freebsd'
 
 - import_tasks: rhel6.yml
-  when: ansible_facts['os_family']|lower == 'redhat' and ansible_lsb.major_release|int == 6
+  when: ansible_facts['os_family']|lower == 'redhat' and ansible_lsb['major_release']|int == 6
 
 - import_tasks: rhel7.yml
-  when: ansible_facts['os_family']|lower == 'redhat' and ansible_lsb.major_release|int == 7
+  when: ansible_facts['os_family']|lower == 'redhat' and ansible_lsb['major_release']|int == 7
 
 # Run OS-independent task sets
 - name: install /etc/issue
