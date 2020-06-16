@@ -3,8 +3,11 @@
 - name: ensure all authorized engineers exist
   include_tasks: authorized_user.yml
   loop: "{{ vars.authorized_engineers }}"
-  
+  tags:
+    - auth
+
 - name: ensure all unauthorized engineers do not exist
   include_tasks: unauthorized_user.yml
   loop: "{{ vars.unauthorized_engineers }}"
-  
+  tags:
+    - auth
