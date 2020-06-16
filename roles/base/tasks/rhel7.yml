@@ -1,0 +1,8 @@
+---
+
+- name: ensure zabbix-agent is installed
+  package:
+      state: present
+      name: zabbix40-agent
+  tags:
+    - base

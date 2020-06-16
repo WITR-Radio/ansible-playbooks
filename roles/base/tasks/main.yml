@@ -7,29 +7,13 @@
 - import_tasks: freebsd.yml
   when: ansible_facts['os_family']|lower == 'freebsd'
 
-- import_tasks: rhel.yml
-  when: ansible_facts['os_family']|lower == 'redhat'
+- import_tasks: rhel6.yml
+  when: ansible_facts['os_family']|lower == 'redhat' and ansible_lsb.major_release|int == 6
+
+- import_tasks: rhel7.yml
+  when: ansible_facts['os_family']|lower == 'redhat' and ansible_lsb.major_release|int == 7
 
 # Run OS-independent task sets
-- name: create _ansible user
-  user:
-      name: _ansible
-      home: /home/_ansible
-      group: _ansible
-      groups: wheel
-      login_class: daemon
-  tags:
-    - base
-
-- name: install ansible SSH key
-  authorized_key:
-      state: present
-      user: _ansible
-      key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMNDv+RBk17Lsm/9SNDRpLpEZI/cTEUDYoJd5cNzzMdJ _ansible@wayne
-      exclusive: yes
-  tags:
-    - base
-
 - name: install /etc/issue
   template:
       src: issue.{{ ansible_os_family }}.j2
