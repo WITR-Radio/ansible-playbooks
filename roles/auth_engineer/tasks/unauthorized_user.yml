@@ -1,15 +1,5 @@
 ---
 
-- name: "ensure {{ item.username }}'s SSH key does not exist"
-  authorized_key:
-    key: "{{ lookup('file', item.username+'.pub') }}"
-    user: "{{ item.username }}"
-    state: absent
-    manage_dir: yes
-    exclusive: yes
-  tags:
-    - auth
-
 - name: "ensure user {{ item.username }} is locked out"
   user:
     name: "{{ item.username }}"
@@ -21,5 +11,15 @@
     password_lock: yes
     shell: "/usr/bin/false"
     state: present
+  tags:
+    - auth
+
+- name: "ensure {{ item.username }}'s SSH key does not exist"
+  authorized_key:
+    key: "{{ lookup('file', item.username+'.pub') }}"
+    user: "{{ item.username }}"
+    state: absent
+    manage_dir: yes
+    exclusive: yes
   tags:
     - auth
